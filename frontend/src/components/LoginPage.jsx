@@ -11,7 +11,7 @@ const LoginPage = ({ setIsLoggedIn, setUserType }) => {
   return (
     <div className="max-w-md mx-auto mt-8 bg-white rounded-lg shadow-lg p-6">
       <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
-
+      <h1>pratheesh</h1>
       {/* Auth Type Tabs */}
       <div className="flex mb-6 bg-gray-100 rounded-lg p-1">
         {['customer', 'driver'].map((type) => (
