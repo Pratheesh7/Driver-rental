@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-
+import Header from './Header';
 const LoginPage = ({ setIsLoggedIn, setUserType }) => {
   const [activeTab, setActiveTab] = useState('customer');
 
@@ -9,6 +9,8 @@ const LoginPage = ({ setIsLoggedIn, setUserType }) => {
   };
 
   return (
+    <>
+    <Header/>
     <div className="max-w-md mx-auto mt-8 bg-white rounded-lg shadow-lg p-6">
       <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
 
@@ -39,13 +41,14 @@ const LoginPage = ({ setIsLoggedIn, setUserType }) => {
         />
         <button
           type="button"
-          className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors"
+          className="w-full bg-green-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors"
           onClick={handleLogin}
         >
           Login as {activeTab.charAt(0).toUpperCase() + activeTab.slice(1)}
         </button>
       </form>
     </div>
+    </>
   );
 };
 

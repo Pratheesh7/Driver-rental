@@ -1,38 +1,190 @@
-export const dummyRequests = [
-    {
-      id: 1,
-      customer: 'John Doe',
-      pickup: '123 Main St',
-      dropoff: '456 Park Ave',
-      time: '2:00 PM',
-      date: '2025-01-08'
+import Profile1 from "../assets/profile/1.jpg";
+import Profile2 from "../assets/profile/2.jpg";
+import Profile3 from "../assets/profile/3.jpg";
+import Profile4 from "../assets/profile/4.jpg";
+import Profile5 from "../assets/profile/5.jpg";
+
+const dummyRequests = [
+  {
+    id: 1,
+    name: "Rajesh Kumar",
+    phoneNumber: "9876543210",
+    address: {
+      flatNo: "102",
+      street: "MG Road",
+      city: "Delhi",
+      state: "Delhi",
     },
-    {
-      id: 2,
-      customer: 'Jane Smith',
-      pickup: '789 Oak Rd',
-      dropoff: '321 Pine St',
-      time: '4:30 PM',
-      date: '2025-01-08'
-    }
-  ];
-  
-  export const dummyDrivers = [
-    {
-      id: 1,
-      name: 'Mike Johnson',
-      age: 35,
-      location: 'Downtown',
-      rating: 4.8,
-      experience: '5 years'
+    pincode: "110001",
+    age: "30",
+    drivingLicense: "DL123456",
+    aadharNo: "1234 5678 9012",
+    email: "rajesh@example.com",
+    rating: 4.5,
+    profilePicture: Profile2,
+  },
+  {
+    id: 2,
+    name: "Meera Sharma",
+    phoneNumber: "8765432109",
+    address: {
+      flatNo: "203",
+      street: "Infantry Road",
+      city: "Bangalore",
+      state: "Karnataka",
     },
-    {
-      id: 2,
-      name: 'Sarah Williams',
-      age: 29,
-      location: 'Suburb',
-      rating: 4.9,
-      experience: '3 years'
-    }
-  ];
-  
+    pincode: "560001",
+    age: "28",
+    drivingLicense: "DL789456",
+    aadharNo: "9876 5432 1098",
+    email: "meera@example.com",
+    rating: 4.7,
+    profilePicture:Profile1,
+  },
+  {
+    id: 3,
+    name: "Amit Verma",
+    phoneNumber: "7654321098",
+    address: {
+      flatNo: "305",
+      street: "Cunningham Road",
+      city: "Mumbai",
+      state: "Maharashtra",
+    },
+    pincode: "400001",
+    age: "35",
+    drivingLicense: "DL456789",
+    aadharNo: "8765 4321 0987",
+    email: "amit@example.com",
+    rating: 4.6,
+    profilePicture: Profile3,
+  },
+  {
+    id: 4,
+    name: "Priya Joshi",
+    phoneNumber: "6543210987",
+    address: {
+      flatNo: "410",
+      street: "Anna Salai",
+      city: "Chennai",
+      state: "Tamil Nadu",
+    },
+    pincode: "600001",
+    age: "32",
+    drivingLicense: "DL321987",
+    aadharNo: "6543 2109 8765",
+    email: "priya@example.com",
+    rating: 4.8,
+    profilePicture: Profile5,
+  },
+  {
+    id: 5,
+    name: "Nithish Kumar",
+    phoneNumber: "5432109876",
+    address: {
+      flatNo: "501",
+      street: "Park Street",
+      city: "Kolkata",
+      state: "West Bengal",
+    },
+    pincode: "700001",
+    age: "29",
+    drivingLicense: "DL987654",
+    aadharNo: "5432 1098 7654",
+    email: "vishal@example.com",
+    rating: 4.4,
+    profilePicture: Profile4,
+  },
+  {
+    id: 6,
+    name: "Sumit Ranjan",
+    phoneNumber: "4321098765",
+    address: {
+      flatNo: "602",
+      street: "Janpath Road",
+      city: "Hyderabad",
+      state: "Telangana",
+    },
+    pincode: "500001",
+    age: "33",
+    drivingLicense: "DL234567",
+    aadharNo: "4321 0987 6543",
+    email: "sumit@example.com",
+    rating: 4.3,
+    profilePicture:Profile3,
+  },
+  {
+    id: 7,
+    name: "Nisha Gupta",
+    phoneNumber: "3210987654",
+    address: {
+      flatNo: "703",
+      street: "Lal Bahadur Shastri Road",
+      city: "Pune",
+      state: "Maharashtra",
+    },
+    pincode: "411001",
+    age: "31",
+    drivingLicense: "DL876543",
+    aadharNo: "3210 9876 5432",
+    email: "nisha@example.com",
+    rating: 4.9,
+    profilePicture: Profile1,
+  },
+  {
+    id: 8,
+    name: "Anil Kumar",
+    phoneNumber: "2109876543",
+    address: {
+      flatNo: "804",
+      street: "MG Road",
+      city: "Jaipur",
+      state: "Rajasthan",
+    },
+    pincode: "302001",
+    age: "36",
+    drivingLicense: "DL567890",
+    aadharNo: "2109 8765 4321",
+    email: "anil@example.com",
+    rating: 4.2,
+    profilePicture: Profile2,
+  },
+  {
+    id: 9,
+    name: "Sneha Mehta",
+    phoneNumber: "1098765432",
+    address: {
+      flatNo: "905",
+      street: "Connaught Place",
+      city: "Delhi",
+      state: "Delhi",
+    },
+    pincode: "110001",
+    age: "27",
+    drivingLicense: "DL543210",
+    aadharNo: "1098 7654 3210",
+    email: "sneha@example.com",
+    rating: 4.6,
+    profilePicture: "/images/profiles/sneha.png",
+  },
+  {
+    id: 10,
+    name: "Rahul Singh",
+    phoneNumber: "9876123456",
+    address: {
+      flatNo: "1010",
+      street: "Link Road",
+      city: "Mumbai",
+      state: "Maharashtra",
+    },
+    pincode: "400001",
+    age: "34",
+    drivingLicense: "DL654321",
+    aadharNo: "9876 1234 5678",
+    email: "rahul@example.com",
+    rating: 4.5,
+    profilePicture: "/images/profiles/rahul.png",
+  },
+];
+
+export { dummyRequests };

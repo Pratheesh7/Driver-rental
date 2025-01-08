@@ -5,7 +5,9 @@ import DriverDashboard from './components/DriverDashboard'
 import CustomerDashboard from './components/CustomerDashboard'
 import NotFound from './components/NotFound'
 import PrivateRoute from './components/PrivateRoute'
+import Home from './components/Home'
 import './App.css'
+import RegistrationPage from './components/Registration'
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
@@ -29,11 +31,7 @@ function App() {
           <Route 
             path="/" 
             element={
-              !isAuthenticated ? (
-                <LoginPage onLogin={handleLogin} />
-              ) : (
-                <Navigate to={`/${userType}-dashboard`} />
-              )
+              <Home />
             } 
           />
 
@@ -48,9 +46,25 @@ function App() {
           <Route 
             path="/customer-dashboard" 
             element={
-              <PrivateRoute isAuthenticated={isAuthenticated} userType="customer">
-                <CustomerDashboard onLogout={handleLogout} />
-              </PrivateRoute>
+              
+                <CustomerDashboard />
+             
+            } 
+          />
+          <Route 
+            path="/login" 
+            element={
+              
+                <LoginPage />
+             
+            } 
+          />
+           <Route 
+            path="/Register" 
+            element={
+              
+                <RegistrationPage />
+             
             } 
           />
 
