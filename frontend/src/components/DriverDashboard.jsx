@@ -48,6 +48,21 @@ const DriverDashboard = () => {
       time: '5:00 PM',
       date: '2025-01-08',
       status: 'accepted'
+    },
+    {
+      id: 4,
+      customer: {
+        name: 'Bob Brown',
+        phone: '+91 9876543213',
+        email: 'bob@example.com',
+        profilePicture: '/api/placeholder/100/100',
+        rating: 4.7
+      },
+      pickup: '333 Birch Rd, Mumbai',
+      dropoff: '444 Cedar St, Mumbai',
+      time: '6:00 PM',
+      date: '2025-01-08',
+      status: 'accepted'
     }
   ]);
 
@@ -189,6 +204,18 @@ const DriverDashboard = () => {
                 </div>
               </div>
             ))}
+
+          {requests.filter(r => r.status === 'pending').length === 0 && (
+            <div className="bg-white rounded-lg shadow-lg p-12 text-center">
+              <CheckCircle className="w-16 h-16 text-gray-400 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-gray-700 mb-2">
+                No Pending Requests
+              </h3>
+              <p className="text-gray-500">
+                You've handled all current ride requests.
+              </p>
+            </div>
+          )}
         </div>
       </div>
     </div>
