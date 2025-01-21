@@ -7,7 +7,7 @@ import Profile5 from "../assets/profile/5.jpg";
 const dummyRequests = [
   {
     id: 1,
-    name: "Rajesh Kumar",
+    name: "Vishal",
     phoneNumber: "9876543210",
     address: {
       flatNo: "102",
@@ -43,7 +43,7 @@ const dummyRequests = [
   },
   {
     id: 3,
-    name: "Amit Verma",
+    name: "Visveswaran",
     phoneNumber: "7654321098",
     address: {
       flatNo: "305",
@@ -97,7 +97,7 @@ const dummyRequests = [
   },
   {
     id: 6,
-    name: "Sumit Ranjan",
+    name: "Sanjay peii",
     phoneNumber: "4321098765",
     address: {
       flatNo: "602",

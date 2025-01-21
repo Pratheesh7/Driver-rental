@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaStar, FaPhoneAlt, FaEnvelope } from 'react-icons/fa';
 import { dummyRequests } from './dummyData';
 import Header from './Header'; // Assuming Header is located in the same directory
@@ -19,7 +19,7 @@ const DriverCard = ({ driver }) => (
         <img
           src={driver.profilePicture || '/placeholder-profile.png'} // Default placeholder
           alt={`${driver.name}'s profile`}
-          className="w-28 h-28 rounded-full object-cover" // Further increased size
+          className="w-28 h-28 rounded-full object-cover"
         />
       </div>
       {/* Additional Details */}
@@ -45,22 +45,71 @@ const DriverCard = ({ driver }) => (
 );
 
 const CustomerDashboard = () => {
+  const [filters, setFilters] = useState({
+    age: '',
+    place: '',
+    rating: '',
+  });
+
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setFilters((prevFilters) => ({ ...prevFilters, [name]: value }));
+  };
+
+  const filteredDrivers = dummyRequests.filter((driver) => {
+    return (
+      (filters.age === '' || driver.age.toString() === filters.age) &&
+      (filters.place === '' ||
+        driver.address.city.toLowerCase().includes(filters.place.toLowerCase()) ||
+        driver.address.state.toLowerCase().includes(filters.place.toLowerCase())) &&
+      (filters.rating === '' || driver.rating >= parseFloat(filters.rating))
+    );
+  });
+
   return (
     <>
-      {/* Include the Header */}
       <Header isAuthenticated={true} userType="customer" />
       <div className="min-h-screen bg-gray-50 p-6 font-poppins">
         {/* Professional Note */}
         <div className="mb-6 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4">
           <p className="font-medium">
-            Note: A charge of ₹15 per kilometer will be charged.Terms & Conditions applied
+            Note: A charge of ₹15 per kilometer will be charged. Terms & Conditions apply.
           </p>
         </div>
         <h1 className="text-3xl font-bold text-center text-gray-900 mb-6">
           Available Drivers
         </h1>
+        {/* Filters */}
+        <div className="mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+          <input
+            type="number"
+            name="age"
+            placeholder="Filter by Age"
+            className="p-3 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-500"
+            value={filters.age}
+            onChange={handleFilterChange}
+          />
+          <input
+            type="text"
+            name="place"
+            placeholder="Filter by City/State"
+            className="p-3 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-500"
+            value={filters.place}
+            onChange={handleFilterChange}
+          />
+          <input
+            type="number"
+            step="0.1"
+            name="rating"
+            placeholder="Filter by Minimum Rating"
+            className="p-3 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-500"
+            value={filters.rating}
+            onChange={handleFilterChange}
+          />
+        </div>
+        {/* Driver Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {dummyRequests.map((driver) => (
+          {filteredDrivers.map((driver) => (
             <DriverCard key={driver.id} driver={driver} />
           ))}
         </div>
