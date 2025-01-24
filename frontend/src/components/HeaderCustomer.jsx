@@ -11,22 +11,19 @@ import {
   MessageSquare
 } from 'lucide-react';
 
-const Header = ({ }) => {
+const Header = ({ pageType }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [userType, setUserType] = useState('');
   const [userName, setUserName] = useState('');
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [notifications, setNotifications] = useState(0);
 
   useEffect(() => {
     const storedIsAuthenticated = localStorage.getItem('isAuthenticated') === 'true';
-    const storedUserType = localStorage.getItem('userType');
     const userData = JSON.parse(localStorage.getItem('userData') || '{}');
-    
+
     setIsAuthenticated(storedIsAuthenticated);
-    setUserType(storedUserType);
     setUserName(userData.name || '');
-    
+
     // Simulate notifications (replace with actual API call)
     if (storedIsAuthenticated) {
       setNotifications(Math.floor(Math.random() * 5));
@@ -38,15 +35,9 @@ const Header = ({ }) => {
     localStorage.removeItem('userType');
     localStorage.removeItem('userData');
     setIsMobileMenuOpen(false);
-  
-    // Show logout successful message
-    alert('Logout successful');
-  
-    // Refresh the page
+    alert('Logout successful');  
     window.location.reload();
   };
-  
-  
 
   const NavLink = ({ to, icon: Icon, children }) => (
     <Link
@@ -74,18 +65,12 @@ const Header = ({ }) => {
           <nav className="hidden md:flex items-center space-x-4">
             {isAuthenticated ? (
               <>
-                {userType === 'driver' ? (
-                  <div className="flex items-center space-x-4">
-                    <NavLink to="/" icon={Home}>Home</NavLink>
-                    <NavLink to="/requests" icon={Car}>Requests</NavLink>
-                    <NavLink to="/driver-dashboard" icon={LayoutDashboard}>Dashboard</NavLink>
-                  </div>
+                <NavLink to="/" icon={Home}>Home</NavLink>
+
+                {pageType === 'customerDashboard' ? (
+                  <NavLink to="/customer-dashboard" icon={LayoutDashboard}>Dashboard</NavLink>
                 ) : (
-                  <div className="flex items-center space-x-4">
-                    <NavLink to="/" icon={Home}>Home</NavLink>
-                    <NavLink to="/rent" icon={Car}>Rent</NavLink>
-                    <NavLink to="/customer-dashboard" icon={LayoutDashboard}>Dashboard</NavLink>
-                  </div>
+                  <NavLink to="/rent" icon={Car}>Rent</NavLink>
                 )}
 
                 {/* Notifications */}
@@ -148,18 +133,11 @@ const Header = ({ }) => {
           <div className="px-2 pt-2 pb-3 space-y-1">
             {isAuthenticated ? (
               <>
-                {userType === 'driver' ? (
-                  <>
-                    <NavLink to="/" icon={Home}>Home</NavLink>
-                    <NavLink to="/requests" icon={Car}>Requests</NavLink>
-                    <NavLink to="/driver-dashboard" icon={LayoutDashboard}>Dashboard</NavLink>
-                  </>
+                <NavLink to="/" icon={Home}>Home</NavLink>
+                {pageType === 'customerDashboard' ? (
+                  <NavLink to="/customer-dashboard" icon={LayoutDashboard}>Dashboard</NavLink>
                 ) : (
-                  <>
-                    <NavLink to="/" icon={Home}>Home</NavLink>
-                    <NavLink to="/rent" icon={Car}>Rent</NavLink>
-                    <NavLink to="/customer-dashboard" icon={LayoutDashboard}>Dashboard</NavLink>
-                  </>
+                  <NavLink to="/rent" icon={Car}>Rent</NavLink>
                 )}
                 <button
                   onClick={handleLogoutClick}

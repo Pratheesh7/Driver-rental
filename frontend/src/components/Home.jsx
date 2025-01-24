@@ -1,13 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import { Car, Shield, Clock, Star } from 'lucide-react';
-import Header from './Header';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { Car, Shield, Clock, Star } from "lucide-react";
+import HeaderCustomer from "./HeaderCustomer"
+
 
 const HomePage = () => {
   const [isVisible, setIsVisible] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false); // Mock logged-in state
+  const navigate = useNavigate();
 
   useEffect(() => {
     setIsVisible(true);
+
+    // Mock: Check login status from localStorage or API
+    const userLoggedIn = localStorage.getItem("isLoggedIn") === "true"; 
+    setIsLoggedIn(userLoggedIn);
   }, []);
+
+  const handleBookNow = () => {
+    if (isLoggedIn) {
+      navigate("/rent");
+    } else {
+      navigate("/login"); // Redirect to login if not logged in
+    }
+  };
 
   const features = [
     {
@@ -33,14 +49,14 @@ const HomePage = () => {
   ];
 
   return (
-   <>
-   < Header />
+    <>
+    <HeaderCustomer/>
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       {/* Hero Section */}
       <div className="container mx-auto px-4 pt-20 pb-32">
         <div
           className={`text-center transform transition-all duration-1000 ${
-            isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+            isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
           }`}
         >
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
@@ -51,7 +67,10 @@ const HomePage = () => {
             Professional drivers at your fingertips. Safe, reliable, and available 24/7.
           </p>
           <div className="space-x-4">
-            <button className="bg-blue-600 text-white rounded px-6 py-3 font-semibold text-lg hover:bg-blue-700 transition-colors duration-300">
+            <button
+              onClick={handleBookNow}
+              className="bg-blue-600 text-white rounded px-6 py-3 font-semibold text-lg hover:bg-blue-700 transition-colors duration-300"
+            >
               Book Now
             </button>
             <button className="border border-blue-600 text-blue-600 rounded px-6 py-3 font-semibold text-lg hover:bg-gray-100 transition-colors duration-300">
@@ -71,7 +90,7 @@ const HomePage = () => {
                 className={`bg-white shadow rounded-lg overflow-hidden transform transition-all duration-700 delay-${
                   index * 200
                 } hover:shadow-lg hover:-translate-y-1 ${
-                  isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+                  isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
                 }`}
               >
                 <div className="p-6">
@@ -92,7 +111,7 @@ const HomePage = () => {
         <div className="container mx-auto px-4">
           <div
             className={`grid grid-cols-1 md:grid-cols-3 gap-8 text-center transform transition-all duration-1000 ${
-              isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
+              isVisible ? "translate-y-0 opacity-100" : "translate-y-10 opacity-0"
             }`}
           >
             <div>
@@ -111,8 +130,7 @@ const HomePage = () => {
         </div>
       </div>
     </div>
-  
-   </>
+    </>
   );
 };
 

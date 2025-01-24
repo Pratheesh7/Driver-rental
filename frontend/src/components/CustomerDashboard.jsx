@@ -1,119 +1,135 @@
-import React, { useState } from 'react';
-import { FaStar, FaPhoneAlt, FaEnvelope } from 'react-icons/fa';
-import { dummyRequests } from './dummyData';
-import Header from './Header'; // Assuming Header is located in the same directory
-
-const DriverCard = ({ driver }) => (
-  <div className="bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow">
-    <div className="p-6 space-y-4">
-      {/* Header Section */}
-      <div className="flex justify-between items-center">
-        {/* Driver Name and Details */}
-        <div>
-          <h2 className="text-lg font-semibold text-gray-900">{driver.name}</h2>
-          <p className="text-sm text-gray-600">
-            <strong>City:</strong> {driver.address.city}, {driver.address.state}
-          </p>
-        </div>
-        {/* Profile Picture */}
-        <img
-          src={driver.profilePicture || '/placeholder-profile.png'} // Default placeholder
-          alt={`${driver.name}'s profile`}
-          className="w-28 h-28 rounded-full object-cover"
-        />
-      </div>
-      {/* Additional Details */}
-      <p className="text-sm text-gray-600">
-        <strong>Age:</strong> {driver.age}
-      </p>
-      <p className="text-sm text-gray-600 flex items-center">
-        <FaPhoneAlt className="mr-2 text-blue-500" /> {driver.phoneNumber}
-      </p>
-      <p className="text-sm text-gray-600 flex items-center">
-        <FaEnvelope className="mr-2 text-red-500" /> {driver.email}
-      </p>
-      {/* Rating */}
-      <div className="flex items-center justify-between">
-        <span className="text-sm text-gray-500">Rating:</span>
-        <div className="flex items-center">
-          <FaStar className="text-yellow-500" />
-          <span className="ml-1 font-medium text-gray-800">{driver.rating}</span>
-        </div>
-      </div>
-    </div>
-  </div>
-);
+import React from "react";
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from "recharts";
+import { Car, Clock, Calendar, MapPin, DollarSign, Star } from "lucide-react";
+import HeaderCustomer from "./HeaderCustomer"
 
 const CustomerDashboard = () => {
-  const [filters, setFilters] = useState({
-    age: '',
-    place: '',
-    rating: '',
-  });
+  const tripHistory = [
+    { month: "Jan", trips: 4, spent: 240 },
+    { month: "Feb", trips: 3, spent: 180 },
+    { month: "Mar", trips: 5, spent: 300 },
+    { month: "Apr", trips: 2, spent: 120 },
+    { month: "May", trips: 4, spent: 240 },
+    { month: "Jun", trips: 6, spent: 360 },
+  ];
 
-  const handleFilterChange = (e) => {
-    const { name, value } = e.target;
-    setFilters((prevFilters) => ({ ...prevFilters, [name]: value }));
-  };
+  const recentTrips = [
+    {
+      id: 1,
+      driverName: "John Doe",
+      date: "2025-01-20",
+      location: "New York City",
+      amount: 60,
+      rating: 4.8,
+    },
+    {
+      id: 2,
+      driverName: "Jane Smith",
+      date: "2025-01-18",
+      location: "Boston",
+      amount: 45,
+      rating: 4.5,
+    },
+  ];
 
-  const filteredDrivers = dummyRequests.filter((driver) => {
-    return (
-      (filters.age === '' || driver.age.toString() === filters.age) &&
-      (filters.place === '' ||
-        driver.address.city.toLowerCase().includes(filters.place.toLowerCase()) ||
-        driver.address.state.toLowerCase().includes(filters.place.toLowerCase())) &&
-      (filters.rating === '' || driver.rating >= parseFloat(filters.rating))
-    );
-  });
+  const stats = [
+    {
+      title: "Total Trips",
+      value: "24",
+      icon: <Car className="h-5 w-5 text-blue-600" />,
+      trend: "+3 this month",
+    },
+    {
+      title: "Active Hours",
+      value: "86",
+      icon: <Clock className="h-5 w-5 text-green-600" />,
+      trend: "12 hrs this week",
+    },
+    {
+      title: "Total Spent",
+      value: "$1,440",
+      icon: <DollarSign className="h-5 w-5 text-purple-600" />,
+      trend: "$180 this month",
+    },
+  ];
 
   return (
     <>
-      <Header isAuthenticated={true} userType="customer" />
-      <div className="min-h-screen bg-gray-50 p-6 font-poppins">
-        {/* Professional Note */}
-        <div className="mb-6 bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4">
-          <p className="font-medium">
-            Note: A charge of ₹15 per kilometer will be charged. Terms & Conditions apply.
-          </p>
+    <HeaderCustomer/>
+    <div className="min-h-screen bg-gray-50 pt-20 px-6">
+      <div className="max-w-7xl mx-auto space-y-6">
+        {/* Dashboard Header */}
+        <div className="mb-8">
+          <h1 className="text-3xl font-bold text-gray-900">Customer Dashboard</h1>
+          <p className="text-gray-500 mt-2">Track your trips and driver interactions</p>
         </div>
-        <h1 className="text-3xl font-bold text-center text-gray-900 mb-6">
-          Available Drivers
-        </h1>
-        {/* Filters */}
-        <div className="mb-6 grid grid-cols-1 md:grid-cols-3 gap-4">
-          <input
-            type="number"
-            name="age"
-            placeholder="Filter by Age"
-            className="p-3 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-500"
-            value={filters.age}
-            onChange={handleFilterChange}
-          />
-          <input
-            type="text"
-            name="place"
-            placeholder="Filter by City/State"
-            className="p-3 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-500"
-            value={filters.place}
-            onChange={handleFilterChange}
-          />
-          <input
-            type="number"
-            step="0.1"
-            name="rating"
-            placeholder="Filter by Minimum Rating"
-            className="p-3 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-500"
-            value={filters.rating}
-            onChange={handleFilterChange}
-          />
-        </div>
-        {/* Driver Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredDrivers.map((driver) => (
-            <DriverCard key={driver.id} driver={driver} />
+
+        {/* Stats Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {stats.map((stat, index) => (
+            <div key={index} className="p-4 bg-white shadow rounded-lg">
+              <div className="flex items-center justify-between">
+                <div>
+                  <p className="text-sm font-medium text-gray-500">{stat.title}</p>
+                  <p className="text-2xl font-bold mt-1">{stat.value}</p>
+                </div>
+                <div className="p-3 bg-gray-50 rounded-full">{stat.icon}</div>
+              </div>
+              <div className="mt-4 text-sm text-blue-600 font-medium">{stat.trend}</div>
+            </div>
           ))}
         </div>
+
+        {/* Charts and Recent Activity */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+          <div className="p-4 bg-white shadow rounded-lg">
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">Trip History</h2>
+            <div className="h-64">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={tripHistory}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="month" />
+                  <YAxis yAxisId="left" />
+                  <YAxis yAxisId="right" orientation="right" />
+                  <Tooltip />
+                  <Line yAxisId="left" type="monotone" dataKey="trips" stroke="#3b82f6" strokeWidth={2} />
+                  <Line yAxisId="right" type="monotone" dataKey="spent" stroke="#10b981" strokeWidth={2} />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          </div>
+
+          <div className="p-4 bg-white shadow rounded-lg">
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">Recent Trips</h2>
+            <div className="space-y-4">
+              {recentTrips.map((trip) => (
+                <div key={trip.id} className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                  <div className="space-y-1">
+                    <p className="font-medium text-gray-900">{trip.driverName}</p>
+                    <div className="flex items-center text-sm text-gray-500">
+                      <Calendar className="w-4 h-4 mr-1" />
+                      {trip.date}
+                    </div>
+                    <div className="flex items-center text-sm text-gray-500">
+                      <MapPin className="w-4 h-4 mr-1" />
+                      {trip.location}
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="font-medium text-gray-900">${trip.amount}</p>
+                    <div className="flex items-center text-sm text-gray-500">
+                      <Star className="w-4 h-4 mr-1 text-yellow-500" />
+                      {trip.rating}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
+    </div>
+    
     </>
   );
 };
