@@ -42,7 +42,7 @@ const RegistrationPage = () => {
     try {
       // Send driverData as JSON
       const response = await axios.post(
-        "http://192.168.90.141:5000/driver/auth/send-otp",
+        "http://localhost:5000/driver/auth/send-otp",
         driverData,
         {
           headers: {
@@ -84,7 +84,7 @@ const RegistrationPage = () => {
     };
   
     try {
-      const response = await axios.post("http://192.168.90.141:5000/user/auth/send-otp", customerData);
+      const response = await axios.post("http://localhost:5000/user/auth/send-otp", customerData);
       console.log("Customer registration successful:", response.data);
       alert("Customer registered successfully. OTP sent to email.");
   
@@ -106,7 +106,7 @@ const RegistrationPage = () => {
 
   const handleOtpSubmit = async () => {
     try {
-      const apiUrl = userType === "driver" ? "http://192.168.90.141:5000/driver/auth/verify-otp" : "http://192.168.90.141:5000/user/auth/verify-otp";
+      const apiUrl = userType === "driver" ? "http://localhost:5000/driver/auth/verify-otp" : "http://localhost:5000/user/auth/verify-otp";
       const response = await axios.post(apiUrl, { email: userEmail, otp });
       console.log("OTP verified:", response.data);
       alert("OTP verified successfully!");

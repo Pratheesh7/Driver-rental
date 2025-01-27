@@ -14,8 +14,8 @@ const LoginPage = ({ setIsLoggedIn, setUserType }) => {
     setLoading(true);
     const loginApiUrl =
       activeTab === 'driver'
-        ? 'http://192.168.90.141:5000/driver/auth/login'
-        : 'http://192.168.90.141:5000/user/auth/login';
+        ? 'http://localhost:5000/driver/auth/login'
+        : 'http://localhost:5000/user/auth/login';
   
     const credentials = { email, password };
   
